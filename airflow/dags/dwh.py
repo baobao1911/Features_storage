@@ -13,7 +13,16 @@ def insert_data_to_table():
         if file.endswith(".parquet"):
             df = pd.read_parquet(os.path.join('/home/bao/airflow/dags/nyc_data', file))
             print("Inserting data from file: " + file)
-            pg_hook.insert_rows(table="nyc_dwh", rows=df.values.tolist())
+            # Danh sách các cột bạn muốn sắp xếp theo
+            desired_columns = ['vendorid', 'pickup_datetime', 'dropoff_datetime', 'passenger_count', 
+                            'trip_distance', 'ratecodeid', 'pulocationid', 'dolocationid', 
+                            'payment_type', 'fare_amount', 'extra', 'mta_tax', 'tip_amount', 
+                            'tolls_amount', 'improvement_surcharge', 'total_amount', 
+                            'congestion_surcharge', 'airport_fee']
+
+            # Sắp xếp các cột
+            df = df.reindex(columns=desired_columns)
+            pg_hook.insert_rows(table="nyc_dwh", rows=df[desired_columns].values.tolist(), target_fields=desired_columns)
 
 with DAG(
     dag_id='Data_Warehouse_with_NYC_TLC_Trip_Record_Data',

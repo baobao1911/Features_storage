@@ -16,10 +16,10 @@ with DAG(
         import os
         import time
         data_type = 'yellow_tripdata'
-        years = ['2022', '2023']
+        years = ['2021', '2022', '2023']
         months = ["01","02","03","04","05","06","07","08","09","10","11","12"]
 
-        dir_save = '/home/bao/airflow/dags/nyc_data'
+        dir_save = '/home/bao/Documents/Project_DE/Features_storage/airflow/nyc_data'
         os.makedirs(dir_save, exist_ok=True)
 
         delay = 5  # delay in seconds
@@ -45,7 +45,7 @@ with DAG(
         import pandas as pd
         import os
 
-        dir_save = '/home/bao/airflow/dags/nyc_data'
+        dir_save = '/home/bao/Documents/Project_DE/Features_storage/airflow/nyc_data'
         for file in os.listdir(dir_save):
             if file.endswith('.parquet'):
                 df = pd.read_parquet(os.path.join(dir_save, file))
@@ -70,7 +70,7 @@ with DAG(
     def merge_data():
         import pandas as pd
         import os
-        dir_save = '/home/bao/airflow/dags/nyc_data'
+        dir_save = '/home/bao/Documents/Project_DE/Features_storage/airflow/nyc_data'
         streamming_path = os.path.join(dir_save, "nyc_data_trip_merged")
         os.makedirs(streamming_path, exist_ok=True)
         df_list = []
