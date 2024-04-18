@@ -1,0 +1,14 @@
+{
+    "name": "nyc-cdc",  
+    "config": {
+      "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+      "database.hostname": "postgresql",
+      "database.port": "5432",
+      "database.user": "postgres",
+      "database.password": "191122",
+      "database.dbname" : "nyc_db_cdc",
+      "plugin.name": "pgoutput",
+      "database.server.name": "nyc_db_cdc",
+      "table.include.list": "public.nyc_dwh_cdc"
+    }
+}
